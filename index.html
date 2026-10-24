@@ -37,6 +37,20 @@
       letter-spacing: 0.25rem;
     }
 
+    .penguins.is-animating {
+      animation: penguin-hop 650ms ease-in-out;
+    }
+
+    @keyframes penguin-hop {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      35% { transform: translateY(-1rem) rotate(-6deg); }
+      65% { transform: translateY(0) rotate(5deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .penguins.is-animating { animation-duration: 0.01ms; }
+    }
+
     .actions {
       display: flex;
       justify-content: center;
@@ -79,13 +93,26 @@
     const button = document.querySelector("#change-message");
     const resetButton = document.querySelector("#reset-message");
     const initialMessage = "点击按钮，页面消息就会改变。";
+    const penguins = document.querySelector(".penguins");
+
+    function animatePenguins() {
+      penguins.classList.remove("is-animating");
+      void penguins.offsetWidth;
+      penguins.classList.add("is-animating");
+    }
+
+    penguins.addEventListener("animationend", () => {
+      penguins.classList.remove("is-animating");
+    });
 
     button.addEventListener("click", () => {
       message.textContent = "你好！按钮已成功更新这条消息。";
+      animatePenguins();
     });
 
     resetButton.addEventListener("click", () => {
       message.textContent = initialMessage;
+      animatePenguins();
     });
   </script>
 </body>
