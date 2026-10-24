@@ -31,6 +31,19 @@
     h1 { margin: 0 0 0.75rem; font-size: clamp(1.8rem, 5vw, 2.5rem); }
     p { color: #526078; line-height: 1.6; }
 
+    .penguins {
+      margin: 1.25rem 0;
+      font-size: 2.5rem;
+      letter-spacing: 0.25rem;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
     button {
       margin-top: 0.75rem;
       padding: 0.75rem 1.25rem;
@@ -45,21 +58,34 @@
 
     button:hover { background: #244bc4; }
     button:focus-visible { outline: 3px solid #9bb3ff; outline-offset: 3px; }
+
+    #reset-message { background: #526078; }
+    #reset-message:hover { background: #3e4b60; }
   </style>
 </head>
 <body>
   <main>
     <h1>你好，欢迎来到我的小页面</h1>
+    <div class="penguins" role="img" aria-label="三只企鹅">🐧 🐧 🐧</div>
     <p id="message" aria-live="polite">点击按钮，页面消息就会改变。</p>
-    <button id="change-message" type="button">更改消息</button>
+    <div class="actions">
+      <button id="change-message" type="button">更改消息</button>
+      <button id="reset-message" type="button">重置消息</button>
+    </div>
   </main>
 
   <script>
     const message = document.querySelector("#message");
     const button = document.querySelector("#change-message");
+    const resetButton = document.querySelector("#reset-message");
+    const initialMessage = "点击按钮，页面消息就会改变。";
 
     button.addEventListener("click", () => {
       message.textContent = "你好！按钮已成功更新这条消息。";
+    });
+
+    resetButton.addEventListener("click", () => {
+      message.textContent = initialMessage;
     });
   </script>
 </body>
